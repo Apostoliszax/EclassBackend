@@ -10,7 +10,7 @@ namespace EclassBackend.Models
         public string Name { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Email { get; set; }
-        public int GPA { get; set; }
+        public float GPA { get; set; }
         public bool hasThesis { get; set; }
         public ICollection<Course>? Courses { get; set; }
     }
