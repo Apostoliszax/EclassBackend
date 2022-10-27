@@ -12,6 +12,6 @@ namespace EclassBackend.Models
         public string Email { get; set; }
         public int GPA { get; set; }
         public bool hasThesis { get; set; }
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<Course>? Courses { get; set; }
     }
 }

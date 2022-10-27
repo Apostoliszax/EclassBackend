@@ -4,7 +4,7 @@ namespace EclassBackend.Models
 {
     public class Lab
     {
-        public int LabId { get; set; }
+        public int ID { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; }
@@ -12,7 +12,5 @@ namespace EclassBackend.Models
 
         [Column(TypeName = "nvarchar(100)")]
         public string Classroom { get; set; }
-        public ICollection<Student>? Students { get; set; }
-        public ICollection<Professor> Professors { get; set; }
     }
 }

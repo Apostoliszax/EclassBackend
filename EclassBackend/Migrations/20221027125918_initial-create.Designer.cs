@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EclassBackend.DAL.Migrations
+namespace EclassBackend.Migrations
 {
     [DbContext(typeof(EclassContext))]
-    [Migration("20221026121044_Initial-Create")]
-    partial class InitialCreate
+    [Migration("20221027125918_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,7 @@ namespace EclassBackend.DAL.Migrations
 
                     b.HasIndex("ProfessorsProfessorID");
 
-                    b.ToTable("CourseProfessor");
+                    b.ToTable("CourseProfessors", (string)null);
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
@@ -51,7 +51,7 @@ namespace EclassBackend.DAL.Migrations
 
                     b.HasIndex("StudentsID");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("CourseStudents", (string)null);
                 });
 
             modelBuilder.Entity("EclassBackend.Models.Course", b =>
@@ -86,36 +86,6 @@ namespace EclassBackend.DAL.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("EclassBackend.Models.CourseProfessors", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfessorID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "ProfessorID");
-
-                    b.HasIndex("ProfessorID");
-
-                    b.ToTable("CourseProfessors");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.CourseStudents", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "StudentID");
-
-                    b.HasIndex("StudentID");
-
-                    b.ToTable("CourseStudents");
-                });
-
             modelBuilder.Entity("EclassBackend.Models.Lab", b =>
                 {
                     b.Property<int>("LabId")
@@ -138,36 +108,6 @@ namespace EclassBackend.DAL.Migrations
                     b.HasKey("LabId");
 
                     b.ToTable("Labs");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.LabProfessors", b =>
-                {
-                    b.Property<int>("LabId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfessorID")
-                        .HasColumnType("int");
-
-                    b.HasKey("LabId", "ProfessorID");
-
-                    b.HasIndex("ProfessorID");
-
-                    b.ToTable("LabProfessors");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.LabStudents", b =>
-                {
-                    b.Property<int>("LabId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.HasKey("LabId", "StudentID");
-
-                    b.HasIndex("StudentID");
-
-                    b.ToTable("LabStudents");
                 });
 
             modelBuilder.Entity("EclassBackend.Models.Professor", b =>
@@ -206,9 +146,6 @@ namespace EclassBackend.DAL.Migrations
                     b.Property<int>("GPA")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LabId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -218,24 +155,7 @@ namespace EclassBackend.DAL.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("LabId");
-
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("LabProfessor", b =>
-                {
-                    b.Property<int>("LabsLabId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfessorsProfessorID")
-                        .HasColumnType("int");
-
-                    b.HasKey("LabsLabId", "ProfessorsProfessorID");
-
-                    b.HasIndex("ProfessorsProfessorID");
-
-                    b.ToTable("LabProfessor");
                 });
 
             modelBuilder.Entity("CourseProfessor", b =>
@@ -275,109 +195,6 @@ namespace EclassBackend.DAL.Migrations
                         .HasForeignKey("LabId");
 
                     b.Navigation("Lab");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.CourseProfessors", b =>
-                {
-                    b.HasOne("EclassBackend.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EclassBackend.Models.Professor", "Professor")
-                        .WithMany()
-                        .HasForeignKey("ProfessorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Professor");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.CourseStudents", b =>
-                {
-                    b.HasOne("EclassBackend.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EclassBackend.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.LabProfessors", b =>
-                {
-                    b.HasOne("EclassBackend.Models.Lab", "Lab")
-                        .WithMany()
-                        .HasForeignKey("LabId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EclassBackend.Models.Professor", "Professor")
-                        .WithMany()
-                        .HasForeignKey("ProfessorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lab");
-
-                    b.Navigation("Professor");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.LabStudents", b =>
-                {
-                    b.HasOne("EclassBackend.Models.Lab", "Lab")
-                        .WithMany()
-                        .HasForeignKey("LabId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EclassBackend.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lab");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.Student", b =>
-                {
-                    b.HasOne("EclassBackend.Models.Lab", null)
-                        .WithMany("Students")
-                        .HasForeignKey("LabId");
-                });
-
-            modelBuilder.Entity("LabProfessor", b =>
-                {
-                    b.HasOne("EclassBackend.Models.Lab", null)
-                        .WithMany()
-                        .HasForeignKey("LabsLabId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EclassBackend.Models.Professor", null)
-                        .WithMany()
-                        .HasForeignKey("ProfessorsProfessorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EclassBackend.Models.Lab", b =>
-                {
-                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

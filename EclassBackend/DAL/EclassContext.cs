@@ -1,5 +1,6 @@
 ﻿using EclassBackend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace EclassBackend.DAL
 {
@@ -17,18 +18,22 @@ namespace EclassBackend.DAL
 
             public DbSet<Student> Students { get; set; } = null!;
 
-            public DbSet<CourseProfessors> CourseProfessors { get; set; } = null!;
-            public DbSet<CourseStudents> CourseStudents { get; set; } = null!;
-            public DbSet<LabProfessors> LabProfessors{ get; set; } = null!;
-            public DbSet<LabStudents> LabStudents { get; set; } = null!;
+            
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CourseProfessors>().HasKey(cp => new { cp.CourseId, cp.ProfessorID});
-            modelBuilder.Entity<CourseStudents>().HasKey(cs => new { cs.CourseId, cs.StudentID });
-            modelBuilder.Entity<LabProfessors>().HasKey(lp => new { lp.LabId,lp.ProfessorID });
-            modelBuilder.Entity<LabStudents>().HasKey(ls => new { ls.LabId,ls.StudentID });
+            modelBuilder
+                .Entity<Course>()
+                .HasMany(c => c.Professors)
+                .WithMany(c => c.Courses)
+                .UsingEntity(j => j.ToTable("CourseProfessors"));
+
+            modelBuilder
+                .Entity<Course>()
+                .HasMany(c => c.Students)
+                .WithMany(c => c.Courses)
+                .UsingEntity(j => j.ToTable("CourseStudents"));
 
         }
     }

@@ -6,15 +6,15 @@ namespace EclassBackend.Models
     public class Course
     {
         [Key]
-        public int CourseId{ get; set; }
+        public int ID{ get; set; }
         [Column(TypeName ="nvarchar(100)")]
         public string Name{ get; set; }
         public int Hours{ get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Classroom{ get; set; }
         public int ECTS { get; set; }
-        public ICollection<Student> Students { get; set; }
-        public ICollection<Professor> Professors { get; set; }
+        public ICollection<Student>? Students { get; set; }
+        public ICollection<Professor>? Professors { get; set; }
         public Lab? Lab { get; set; }
     }
 }
