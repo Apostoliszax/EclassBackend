@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EclassBackend.DAL;
 using EclassBackend.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace EclassBackend.Controllers
 {
@@ -20,8 +21,9 @@ namespace EclassBackend.Controllers
         {
             _context = context;
         }
-        
+
         // GET: api/Courses
+        [EnableCors("AnotherPolicy")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
@@ -29,6 +31,7 @@ namespace EclassBackend.Controllers
         }
 
         // GET: api/Courses/5
+        [EnableCors("AnotherPolicy")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
@@ -44,6 +47,7 @@ namespace EclassBackend.Controllers
 
         // PUT: api/Courses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse(int id, Course course)
         {
@@ -75,6 +79,7 @@ namespace EclassBackend.Controllers
 
         // POST: api/Courses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [EnableCors("AnotherPolicy")]
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
@@ -85,6 +90,7 @@ namespace EclassBackend.Controllers
         }
 
         // DELETE: api/Courses/5
+        [EnableCors("AnotherPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {

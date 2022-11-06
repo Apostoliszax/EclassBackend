@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EclassBackend.DAL;
 using EclassBackend.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace EclassBackend.Controllers
 {
@@ -22,6 +23,7 @@ namespace EclassBackend.Controllers
         }
 
         // GET: api/Professors
+        [EnableCors("AnotherPolicy")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Professor>>> GetProfessors()
         {
@@ -29,6 +31,7 @@ namespace EclassBackend.Controllers
         }
 
         // GET: api/Professors/5
+        [EnableCors("AnotherPolicy")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Professor>> GetProfessor(int id)
         {
@@ -44,6 +47,7 @@ namespace EclassBackend.Controllers
 
         // PUT: api/Professors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProfessor(int id, Professor professor)
         {
@@ -75,6 +79,7 @@ namespace EclassBackend.Controllers
 
         // POST: api/Professors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [EnableCors("AnotherPolicy")]
         [HttpPost]
         public async Task<ActionResult<Professor>> PostProfessor(Professor professor)
         {
@@ -85,6 +90,7 @@ namespace EclassBackend.Controllers
         }
 
         // DELETE: api/Professors/5
+        [EnableCors("AnotherPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfessor(int id)
         {
